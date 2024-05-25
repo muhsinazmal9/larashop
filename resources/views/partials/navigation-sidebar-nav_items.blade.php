@@ -6,7 +6,7 @@
                 [
                     'name' => __('Dashboard'),
                     'icon' => 'custom-status-up',
-                    'route' => 'dashboard',
+                    'route' => 'admin.dashboard',
                 ],
             ],
         ],
@@ -16,7 +16,7 @@
                 [
                     'name' => __('Users'),
                     'icon' => 'custom-user-square',
-                    'route' => 'users.index',
+                    'route' => 'admin.users.index',
                 ],
             ],
         ],
