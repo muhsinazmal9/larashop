@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +18,10 @@ class PermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()->make(PermissionRegistrar::class)->forgetCachedPermissions();
 
+        Schema::disableForeignKeyConstraints();
+        Permission::truncate();
+        Schema::enableForeignKeyConstraints();
+
         foreach ($this->flattenArray($this->permissions())  as $permission) {
             Permission::create(['name' => $permission]);
         }
@@ -30,38 +35,32 @@ class PermissionSeeder extends Seeder
                 'delete permissions',
             ],
             'manage roles' => [
+                'list roles',
+                'read roles',
+                'create roles',
                 'edit roles',
                 'delete roles',
             ],
             'manage users' => [
+                'list users',
+                'read users',
+                'create users',
                 'edit users',
                 'delete users',
             ],
-            'manage articles' => [
-                'edit articles',
-                'delete articles',
-                'publish articles',
-                'unpublish articles',
-            ],
-            'manage pages' => [
-                'edit pages',
-                'delete pages',
-            ],
-            'manage posts' => [
-                'edit posts',
-                'delete posts',
-            ],
             'manage categories' => [
+                'list categories',
+                'read categories',
+                'create categories',
                 'edit categories',
                 'delete categories',
             ],
-            'manage tags' => [
-                'edit tags',
-                'delete tags',
-            ],
-            'manage comments' => [
-                'edit comments',
-                'delete comments',
+            'manage products' => [
+                'list products',
+                'read products',
+                'create products',
+                'edit products',
+                'delete products',
             ],
         ];
     }
