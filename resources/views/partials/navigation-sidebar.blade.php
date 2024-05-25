@@ -39,7 +39,7 @@
                 </div>
             </div>
             <ul class="pc-navbar">
-                <x-nav-components.grouped-nav-item :caption="__('Dashboard')" />
+                @include('partials.navigation-sidebar-nav_items')
             </ul>
         </div>
     </div>
