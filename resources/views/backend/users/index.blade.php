@@ -3,6 +3,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets') }}/css/plugins/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"/>
 @endpush
 
 
@@ -86,6 +87,7 @@
     <script src="{{ asset('assets') }}/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/dataTables.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     {{-- <script src="{{ asset('assets') }}/js/plugins/simple-datatables.js"></script> --}}
 
     {{-- <script>
@@ -225,8 +227,8 @@
             },
         });
     </script>
+
     <script>
-        // [ DOM/jquery ]
         $('#customer-create-form').on('submit', function(e) {
             e.preventDefault();
             $.ajax({
@@ -249,10 +251,12 @@
                         $('#customer-create-form').find('form').trigger('reset');
                         $('#customer-edit_add-modal').modal('hide');
                         $('#customer-edit_add-modal').find('form').trigger('reset');
-                        toastr.success(response.message);
+                        toastr.success(response);
+                        console.log(response);
                     } else {
                         $('#customer-create-form button').removeAttr('disabled');
-                        toastr.error(response.message);
+                        toastr.error(response);
+                        console.log(response);
                     }
                 },
                 error: function(xhr) {
@@ -261,9 +265,11 @@
                     if ($.isEmptyObject(response) == false) {
                         $.each(response.errors, function(key, value) {
                             toastr.error(value);
+                            console.log(value);
                         });
                     } else {
-                        toastr.error(response.message);
+                        toastr.error(response);
+                        console.log(response);
                     }
                 }
             });
