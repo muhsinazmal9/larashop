@@ -5,15 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
+    public function __construct(private UserService $userService)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('backend.users.index');
+        $users = User::paginate(10);
+        return view('backend.users.index', compact('users'));
     }
 
     /**
@@ -27,9 +34,12 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        //
+
+        $this->userService->create($request->validated());
+
+        return redirect()->route('admin.users.index');
     }
 
     /**

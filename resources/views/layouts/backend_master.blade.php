@@ -27,6 +27,9 @@
     <!-- [Template CSS Files] -->
     <link rel="stylesheet" href="{{ asset('assets') }}/css/style.css" id="main-style-link" />
     <link rel="stylesheet" href="{{ asset('assets') }}/css/style-preset.css" />
+    <!-- [Extarnal CSS Files] Start -->
+    @stack('styles')
+    <!-- [Template CSS Files] end -->
 </head><!-- [Head] end --><!-- [Body] Start -->
 
 <body data-pc-preset="preset-1" data-pc-sidebar-caption="true" data-pc-layout="vertical" data-pc-direction="ltr"
@@ -677,11 +680,7 @@
             </div>
         </div>
     </div>
-    <!-- [Page Specific JS] start -->
-    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{ asset('assets') }}/js/plugins/apexcharts.min.js"></script>
-    <script src="{{ asset('assets') }}/js/pages/dashboard-default.js"></script>
-    <!-- [Page Specific JS] end --><!-- Required Js -->
+    <!-- Required Js -->
     <script src="{{ asset('assets') }}/js/plugins/popper.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/simplebar.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/bootstrap.min.js"></script>
@@ -709,6 +708,10 @@
     <script>
         main_layout_change("vertical");
     </script>
+
+    <!-- [Page Specific JS] start -->
+    @stack('scripts')
+    <!-- [Page Specific JS] end -->
 </body>
 <!-- [Body] end -->
 
