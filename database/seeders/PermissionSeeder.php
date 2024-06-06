@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PermissionSeeder extends Seeder
 {
@@ -69,6 +68,7 @@ class PermissionSeeder extends Seeder
      * Recursively flatten an array.
      *
      * @param array $input
+     *
      * @return array
      */
     private function flattenArray(array $input): array
@@ -81,6 +81,7 @@ class PermissionSeeder extends Seeder
                 $result[] = $value;
             }
         }
+
         return $result;
     }
 }
