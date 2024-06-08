@@ -14,6 +14,13 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('dashboard', DashboardController::class)->name('dashboard');
 
+
+
+        // User Routes
+
+        Route::controller(UserController::class)->name('users.')->prefix('users')->group(function () {
+            Route::get('getDataList', [UserController::class, 'getUserList'])->name('getDataList');
+        });
         // Resource Routes
         Route::resource('users', UserController::class);
     });

@@ -22,8 +22,12 @@
                                 <input type="text" class="form-control" placeholder="Name" name="name" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Email</label> <input type="text" class="form-control"
-                                    placeholder="Email" name="email" />
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" placeholder="Email" name="email" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" placeholder="Password" name="password" />
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,7 +20,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::latest()->paginate(10);
+        $users = User::latest()->get();
         return view('backend.users.index', compact('users'));
     }
 
@@ -80,8 +81,8 @@ class UserController extends Controller
 
 
 
-    public function getUserList()
+    public function getDataList(Request $request) : JsonResponse
     {
-        return $this->userService->getUserList();
+        return $this->userService->getDataList($request->all());
     }
 }
