@@ -102,8 +102,9 @@
                         return `
                             <a href="#" class="btn btn-sm btn-primary">Show</a>
                             <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                            <button type="button" onclick="deleteCustomer(${row.id})" class="btn btn-sm btn-danger">Delete</button>
                         `;
+
                     },
                     "orderable": false,
                     "searchable": false
@@ -113,6 +114,30 @@
                 [0, "desc"]
             ],
         });
+
+
+        function deleteCustomer(id) {
+            const url_route = "{{ route('admin.users.destroy', ':id') }}".replace(':id', id)
+            $.ajax({
+                url: url_route,
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                type: 'DELETE',
+                success: function(response) {
+                    if (response.success) {
+                        $('#users-dataTable').DataTable().ajax.reload();
+                        console.log('success', response)
+                        toastr.success(response.message)
+                    } else {
+                        console.log('success-error:something went wrong', response)
+                    }
+                },
+                error: function(response) {
+                    console.log('something went wrong', response)
+                }
+            });
+        }
     </script>
 
     <script>

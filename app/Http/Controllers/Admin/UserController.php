@@ -76,7 +76,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json([
+            'success' => true,
+            'data' => null,
+            'message' => 'User deleted successfully',
+            'code' => 200
+        ]);
     }
 
 
