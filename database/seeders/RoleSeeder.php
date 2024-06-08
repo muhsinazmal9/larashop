@@ -4,11 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
-use Database\Seeders\PermissionSeeder;
 use Spatie\Permission\PermissionRegistrar;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Spatie\FlareClient\Flare;
-use Symfony\Component\ErrorHandler\Exception\FlattenException;
 
 class RoleSeeder extends Seeder
 {
@@ -23,7 +19,6 @@ class RoleSeeder extends Seeder
         foreach ($this->roles() as $role => $permissions) {
             Role::create(['name' => $role])->givePermissionTo($this->flattenPermissions($permissions));
         }
-
     }
 
     public function roles(): array
@@ -37,7 +32,7 @@ class RoleSeeder extends Seeder
                 // Direct permissions
                 'direct__permissions' => [
                     'edit categories',
-                ]
+                ],
             ],
         ];
     }
@@ -46,6 +41,7 @@ class RoleSeeder extends Seeder
      * Flatten an array of permissions with nested arrays into a flat array of permissions.
      *
      * @param array $permissions
+     *
      * @return array
      */
     private function flattenPermissions(array $permissions): array
@@ -60,9 +56,7 @@ class RoleSeeder extends Seeder
                 $result[] = $permission;
             }
         }
+
         return $result;
     }
 }
-
-
-

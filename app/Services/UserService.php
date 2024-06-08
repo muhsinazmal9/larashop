@@ -14,9 +14,7 @@ class UserService
     public function create(array $data)// : User
     {
         $data['password'] = bcrypt('muhsin');
+
         return User::create($data);
     }
-
-
-
 }
