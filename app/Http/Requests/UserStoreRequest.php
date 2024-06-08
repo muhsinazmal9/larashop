@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use Exception;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserStoreRequest extends FormRequest
@@ -26,5 +28,17 @@ class UserStoreRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
         ];
+    }
+
+    protected function failedValidation(Validator $validator): Exception
+    {
+        $response = response()->json([
+            'success' => false,
+            'message' => 'User validation failed.',
+            'errors' => $validator->errors(),
+            'code' => 403
+        ]);
+
+        throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
 }

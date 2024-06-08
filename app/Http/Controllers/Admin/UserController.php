@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::latest()->paginate(10);
         return view('backend.users.index', compact('users'));
     }
 
@@ -36,10 +36,14 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+        $user = $this->userService->create($request->validated());
 
-        $this->userService->create($request->validated());
-
-        return redirect()->route('admin.users.index');
+        return response()->json([
+            'success' => true,
+            'data' => $user,
+            'message' => 'User created successfully',
+            'code' => 200
+        ]);
     }
 
     /**
@@ -72,5 +76,12 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+
+
+    public function getUserList()
+    {
+        return $this->userService->getUserList();
     }
 }

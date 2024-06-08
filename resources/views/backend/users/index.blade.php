@@ -3,20 +3,24 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets') }}/css/plugins/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
 @endpush
 
 
 
 @section('content')
     <div class="col-sm-12">
-        <div class="card table-card">
-            <div class="card-body">
-                <div class="text-end p-4 pb-sm-2">
+        <div class="card">
+            <div class="card-header">
+                <div class="text-end">
                     <a href="#" class="btn btn-primary d-inline-flex align-items-center gap-2" data-bs-toggle="modal"
                         data-bs-target="#customer-edit_add-modal"><i class="ti ti-plus f-18"></i> Add Customer</a>
                 </div>
-                <div class="table-responsive">
+            </div>
+
+            <div class="card-body">
+
+                <div class="table table-responsive">
                     <table class="table table-hover" id="dom-jqry">
                         <thead>
                             <tr>
@@ -231,49 +235,46 @@
     <script>
         $('#customer-create-form').on('submit', function(e) {
             e.preventDefault();
+
+            $('#customer-create-form').find('.is-invalid').removeClass('is-invalid')
+            $('#customer-create-form').find('.invalid-feedback').remove()
+            $('#customer-create-form').find('button[type="submit"]').prop('disabled', true).css('opacity', '0.5');
+
+            const url_route = "{{ route('admin.users.store') }}"
             $.ajax({
-                url: $(this).attr('action'),
-                method: $(this).attr('method'),
-                data: new FormData(this),
+                url: url_route,
+                dataType: 'json',
+                type: 'post',
+                cache: false,
                 processData: false,
                 contentType: false,
-                dataType: 'json',
-                beforeSend: function() {
-                    $('#customer-create-form button').attr('disabled', 'disabled');
-                },
+                data: new FormData(this),
                 success: function(response) {
-                    if (response.status) {
-                        $('#customer-create-form button').removeAttr('disabled');
-                        $('#customer-create-form input').val('');
-                        $('#customer-create-form textarea').val('');
-                        $('#customer-create-form select').val('');
-                        $('#customer-create-form').modal('hide');
-                        $('#customer-create-form').find('form').trigger('reset');
+                    if (response.success) {
+                        // submit button opacity 0 for a while
                         $('#customer-edit_add-modal').modal('hide');
-                        $('#customer-edit_add-modal').find('form').trigger('reset');
-                        toastr.success(response);
-                        console.log(response);
+                        $('#customer-create-form').trigger('reset');
+                        $('#customer-table').DataTable().ajax.reload();
+                        console.log('success', response)
+                        toastr.success(response.message)
                     } else {
-                        $('#customer-create-form button').removeAttr('disabled');
-                        toastr.error(response);
-                        console.log(response);
+                        const errors = response.errors;
+                        for (const [key, value] of Object.entries(errors)) {
+                            $(`input[name=${key}]`).addClass('is-invalid')
+                            $(`textarea[name=${key}]`).addClass('is-invalid')
+
+                            $(`input[name=${key}]`).after(`<div class="invalid-feedback">${value}</div>`)
+                        }
+
                     }
                 },
-                error: function(xhr) {
-                    $('#customer-create-form button').removeAttr('disabled');
-                    var response = xhr.responseJSON;
-                    if ($.isEmptyObject(response) == false) {
-                        $.each(response.errors, function(key, value) {
-                            toastr.error(value);
-                            console.log(value);
-                        });
-                    } else {
-                        toastr.error(response);
-                        console.log(response);
-                    }
+                error: function(response) {
+                    console.log('something went wrong', response)
                 }
+            }).always(function() {
+                $('#customer-create-form').find('button[type="submit"]').prop('disabled', false).css(
+                    'opacity', '1');
             });
         });
     </script>
 @endpush
-    

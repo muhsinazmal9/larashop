@@ -1,11 +1,12 @@
 <form action="{{ route('admin.users.store') }}" method="POST" id="customer-create-form">
     @csrf
-<div class="modal fade" id="customer-edit_add-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg  modal-dialog-scrollable">
-        <div class="modal-content">
+    <div class="modal fade" id="customer-edit_add-modal" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg  modal-dialog-scrollable">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="mb-0">Create Customer</h5>
-                    <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default ms-auto" data-bs-dismiss="modal"><i class="ti ti-x f-20"></i></a>
+                    <a href="#" class="avtar avtar-s btn-link-danger btn-pc-default ms-auto"
+                        data-bs-dismiss="modal"><i class="ti ti-x f-20"></i></a>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -44,7 +45,3 @@
         </div>
     </div>
 </form>
-
-
-
-
