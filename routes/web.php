@@ -19,7 +19,7 @@ Route::middleware(['auth', 'verified'])
         // User Routes
 
         Route::controller(UserController::class)->name('users.')->prefix('users')->group(function () {
-            Route::get('getDataList', [UserController::class, 'getUserList'])->name('getDataList');
+            Route::get('getDataList', [UserController::class, 'getDataList'])->name('getDataList');
         });
         // Resource Routes
         Route::resource('users', UserController::class);

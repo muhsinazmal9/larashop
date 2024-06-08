@@ -68,6 +68,50 @@
                 url: "{{ route('admin.users.getDataList') }}",
                 type: "GET",
             },
+            columns: [{
+                    data: "DT_RowIndex",
+                    render(data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    },
+                },
+                {
+                    data: "name",
+                    name: "name"
+                },
+                {
+                    data: "contact",
+                    // a static contact
+                    render() {
+                        return '1234567890';
+                    },
+                    orderable: false,
+                    searchable: false,
+                },
+                {
+                    data: "status",
+                    render(data, type, row) {
+                        return '<span class="badge bg-success">Active</span>';
+                    },
+                    "orderable": false,
+                    "searchable": false,
+                },
+
+                {
+                    "data": "actions",
+                    "render": function(data, type, row) {
+                        return `
+                            <a href="#" class="btn btn-sm btn-primary">Show</a>
+                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                        `;
+                    },
+                    "orderable": false,
+                    "searchable": false
+                },
+            ],
+            order: [
+                [0, "desc"]
+            ],
         });
     </script>
 
@@ -93,7 +137,7 @@
                         // submit button opacity 0 for a while
                         $('#customer-edit_add-modal').modal('hide');
                         $('#customer-create-form').trigger('reset');
-                        $('#customer-table').DataTable().ajax.reload();
+                        $('#users-dataTable').DataTable().ajax.reload();
                         console.log('success', response)
                         toastr.success(response.message)
                     } else {
