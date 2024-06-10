@@ -130,7 +130,7 @@
                         console.log('success', response)
                         toastr.success(response.message)
                     } else {
-                        console.log('success-error:something went wrong', response)
+                        console.log('something went wrong', response)
                     }
                 },
                 error: function(response) {
