@@ -39,12 +39,8 @@ class UserController extends Controller
     {
         $user = $this->userService->create($request->validated());
 
-        return response()->json([
-            'success' => true,
-            'data' => $user,
-            'message' => 'User created successfully',
-            'code' => 200
-        ]);
+        return success('User created successfully', $user);
+
     }
 
     /**
@@ -78,12 +74,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return response()->json([
-            'success' => true,
-            'data' => null,
-            'message' => 'User deleted successfully',
-            'code' => 200
-        ]);
+        return success('User deleted successfully');
     }
 
 

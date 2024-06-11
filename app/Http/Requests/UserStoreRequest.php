@@ -35,12 +35,7 @@ class UserStoreRequest extends FormRequest
 
     protected function failedValidation(Validator $validator): Exception
     {
-        $response = response()->json([
-            'success' => false,
-            'message' => 'User validation failed.',
-            'errors' => $validator->errors(),
-            'code' => 403
-        ]);
+        $response = error('Validation failed', $validator->errors());
 
         throw new \Illuminate\Validation\ValidationException($validator, $response);
     }
