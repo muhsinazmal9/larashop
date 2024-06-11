@@ -22,11 +22,6 @@ class UserService
 
     public function getDataList (array $data): JsonResponse
     {
-        return response()->json([
-            'success' => true,
-            'data' => User::latest()->get(),
-            'message' => 'User data list returned successfully',
-            'code' => 200
-        ]);
+        return success('User data list returned successfully', User::latest()->get());
     }
 }
