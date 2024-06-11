@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 
 class UserController extends Controller
 {
@@ -21,7 +22,9 @@ class UserController extends Controller
     public function index()
     {
         $users = User::latest()->get();
-        return view('backend.users.index', compact('users'));
+        $roles = Role::all();
+
+        return view('backend.users.index', compact('users', 'roles'));
     }
 
     /**
