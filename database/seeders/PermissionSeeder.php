@@ -21,8 +21,10 @@ class PermissionSeeder extends Seeder
         Permission::truncate();
         Schema::enableForeignKeyConstraints();
 
-        foreach ($this->flattenArray($this->permissions())  as $permission) {
-            Permission::create(['name' => $permission]);
+        foreach ($this->permissions() as $group_name => $permissions) {
+            foreach ($permissions as $permission) {
+                Permission::create(['name' => $permission, 'group_name' => $group_name]);
+            }
         }
     }
 
