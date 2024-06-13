@@ -24,7 +24,8 @@ class RoleSeeder extends Seeder
     public function roles(): array
     {
         return [
-            'admin' => [
+            'Super Admin' => [],
+            'Admin' => [
                 // Group permissions
                 'manage permissions',
                 'manage roles',
