@@ -3,8 +3,9 @@
         <div class="m-header">
             <a href="{{ route('admin.dashboard') }}"
                 class="b-brand text-primary"><!-- ========   Change your logo from here   ============ -->
-                <img src="{{ asset('assets') }}/images/logo-dark.svg" class="img-fluid logo-lg" alt="logo" />
-                <span class="badge bg-light-success rounded-pill ms-2 theme-version">v9.0</span></a>
+                {{ Config::get('app.name', 'Laravel') }}
+                {{-- <img src="{{ asset('assets') }}/images/logo-dark.svg" class="img-fluid logo-lg" alt="logo" /> --}}
+                <span class="badge bg-light-success rounded-pill ms-2 theme-version">v1.0</span></a>
         </div>
         <div class="navbar-content">
             <div class="card pc-user-card">
@@ -16,7 +17,9 @@
                         </div>
                         <div class="flex-grow-1 ms-3 me-2">
                             <h6 class="mb-0">{{ auth()->user()->name }}</h6>
-                            <small>Role: not yet</small>
+                            <small>Role:
+                                <span class="text-secondary">{{ auth()->user()->getRoleNames()->first() }}</span>
+                            </small>
                         </div>
                         <a class="btn btn-icon btn-link-secondary avtar" data-bs-toggle="collapse"
                             href="#pc_sidebar_userlink"><svg class="pc-icon">
